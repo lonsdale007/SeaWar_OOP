@@ -80,16 +80,6 @@ public class Cell implements IShotableUnit {
     }
 
     @Override
-    public void deleteModelUnitListener(IShotableUnitListener l) {
-        buttonListeners.remove(l);
-    }
-
-    @Override
-    public void deleteButtonUnitListener(IShotableUnitListener l) {
-        modelListeners.remove(l);
-    }
-
-    @Override
     public void fireShotableUnitDamaged() {
         for (IShotableUnitListener listener : buttonListeners) {
             listener.unitDamaged(this);
