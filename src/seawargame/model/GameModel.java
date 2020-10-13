@@ -120,10 +120,10 @@ public class GameModel {
     }
 
     private void identifyGameOver() {
-        if (!fields[0].hasActiveShips()) {
+        if (fields[0].hasActiveShips()) {
             //если у робота не осталось активных кораблей
             fireGameFinished(GameResult.Victory);
-        } else if (!fields[1].hasActiveShips()) {
+        } else if (fields[1].hasActiveShips()) {
             ////если у человека не осталось активных кораблей
             fireGameFinished(GameResult.Losing);
         }
