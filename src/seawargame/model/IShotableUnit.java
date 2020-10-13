@@ -16,9 +16,5 @@ public interface IShotableUnit {
 
     void addButtonUnitListener(IShotableUnitListener l);
 
-    void deleteModelUnitListener(IShotableUnitListener l);
-
-    void deleteButtonUnitListener(IShotableUnitListener l);
-
     void fireShotableUnitDamaged();
 }

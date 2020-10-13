@@ -18,13 +18,12 @@ public class GameField {
 
     private List<Ship> ships = new ArrayList<>();
     private int size;
-    private Map<Location, Cell> cells = new HashMap();
+    private Map<Location, Cell> cells;
     private ShotableUnitObserver shotableUnitObserver;
     private ShipObserver shipObserver;
     private Cell lastHitCell;
 
     public GameField() {
-
         this.cells = new HashMap<>();
         this.shotableUnitObserver = new ShotableUnitObserver();
         this.size = 0;
@@ -40,19 +39,18 @@ public class GameField {
     public boolean hasActiveShips() {
         for (Ship ship : ships) {
             if (ship.isActive()) {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
 
     private Cell[] emptyCells() {
         // найти незанятые ячейки...
-        Set<Cell> emptyCells = new HashSet<>();
         // все
-        emptyCells.addAll(cells.values());
+        Set<Cell> emptyCells = new HashSet<>(cells.values());
         // вычесть занятые
         emptyCells.removeIf((c) -> c.getDeck() != null);
 
@@ -62,11 +60,8 @@ public class GameField {
 
     private Set<Cell> filterCells(Predicate<Cell> p) {
         // найти незанятые ячейки
-        Set<Cell> okCells = new HashSet<>();
-        okCells.addAll(cells.values());
-        // okCells.removeIf(p.negate());
 
-        return okCells;
+        return new HashSet<>(cells.values());
     }
 
     public Set<Cell> getAllLockedCells() {
@@ -78,14 +73,12 @@ public class GameField {
         // очистить все клетки от палуб кораблей
         for (Cell cell : cells.values()) {
             cell.unsetDeck();
-
         }
         // составить очередь из кораблей
         Deque<Ship> shipsQueue = new ArrayDeque<>();
 
         for (Ship ship : shipsPool) {
             shipsQueue.addFirst(ship);
-
         }
         // расставленные корабли
         List<Ship> settedShips = new ArrayList<>();
@@ -162,8 +155,8 @@ public class GameField {
         }
         ships = settedShips;
         //подключить наблюдеталей
-        for (int j = 0; j < ships.size(); j++) {
-            ships.get(j).addShipListener(shipObserver);
+        for (Ship ship : ships) {
+            ship.addShipListener(shipObserver);
         }
 
         if (!shipsQueue.isEmpty()) {
@@ -194,8 +187,8 @@ public class GameField {
             Set<Cell> influencedCells = this.get8NeighboursFor(loc);
             influencedCells.add(cell);
 
-            for (Cell с : influencedCells) {
-                if (с.getDeck() != null && !ship.isMyDeck(с.getDeck())) {
+            for (Cell c : influencedCells) {
+                if (c.getDeck() != null && !ship.isMyDeck(c.getDeck())) {
                     isOk = false;
                     break;
                 }
@@ -321,10 +314,6 @@ public class GameField {
         listeners.add(l);
     }
 
-    public void deleteFieldLstener(IGameFieldListener l) {
-        listeners.remove(l);
-    }
-
     public void fireMyCellDamaged() {
         for (IGameFieldListener listener : listeners) {
             listener.myCellDamaged();
@@ -353,7 +342,6 @@ public class GameField {
         public void unitDamaged(IShotableUnit unit) {
             lastHitCell = (Cell) unit;
             fireMyCellDamaged();
-
         }
     }
 
@@ -363,7 +351,6 @@ public class GameField {
         public void shipDrowned(IShotableUnit lastHittedDeck) {
             lastHitCell = ((Deck) lastHittedDeck).getCell();
             fireMyShipDrowned();
-
         }
 
         @Override

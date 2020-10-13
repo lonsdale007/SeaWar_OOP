@@ -12,11 +12,9 @@ public abstract class Deck implements IShotableUnit{
     protected ShotableUnitState state;
 
     public Deck(Ship ship, Location shipBasedLocation){
-
         cell = null;
         this.shipBasedLocation = shipBasedLocation;
         this.state = ShotableUnitState.Ok;
-
     }
 
     /**
@@ -52,12 +50,11 @@ public abstract class Deck implements IShotableUnit{
         }
     }
 
-    /** Ударить в палубу.
-     * Для изменения стандартного поведения переопределить метод в подклассах Deck
-     *   */
+    /** Ударить в палубу
+     */
     @Override
     public void shootAction() {
-        if (this.state != ShotableUnitState.Broken){
+        if (this.state != ShotableUnitState.Broken) {
             this.state = ShotableUnitState.Broken;
             // в меня попали
             fireShotableUnitDamaged();
@@ -76,16 +73,6 @@ public abstract class Deck implements IShotableUnit{
     @Override
     public void addButtonUnitListener(IShotableUnitListener l) {
         buttonListeners.add(l);
-    }
-
-    @Override
-    public void deleteModelUnitListener(IShotableUnitListener l) {
-        buttonListeners.remove(l);
-    }
-
-    @Override
-    public void deleteButtonUnitListener(IShotableUnitListener l) {
-        modelListeners.remove(l);
     }
 
     @Override

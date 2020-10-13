@@ -18,7 +18,7 @@ public abstract class Ship implements Cloneable {
 
     protected GameField field;
 
-    protected ShipState state = ShipState.Ok;
+    protected ShipState state;
 
     protected ShipObserver shipObserver;
 
@@ -33,8 +33,6 @@ public abstract class Ship implements Cloneable {
     /**
      * Существенные для расстановки направления (у 1-палубного всего 1
      * направление, у других могут быть 2 или 4 направления)
-     *
-     * @return
      */
     abstract public Direction[] meaningfulDirections();
 
@@ -59,8 +57,8 @@ public abstract class Ship implements Cloneable {
     public boolean isMyDeck(Deck deck) {
         return decks.contains(deck);
     }
-    ///////!!!!!!!!!!!!!!!!!!!
-    public void setup(GameField field) {
+
+    public void setup (GameField field) {
         if (this.field != null) {
             throw new RuntimeException("Cannot change field for ship !");
         } else {
@@ -81,10 +79,6 @@ public abstract class Ship implements Cloneable {
 
     public void addShipListener(IShipListener l) {
         shipListeners.add(l);
-    }
-
-    public void deleteShipLstener(IShipListener l) {
-        shipListeners.remove(l);
     }
 
     public void fireShipDamaged() {
@@ -120,5 +114,4 @@ public abstract class Ship implements Cloneable {
             }
         }
     }
-
 }

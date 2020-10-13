@@ -1,11 +1,11 @@
 package seawargame.model;
 
 public class Submarine extends SeveralShotResistantShip {
-    public Submarine(){
+    public Submarine() {
         super();
     }
 
-    private Submarine(Submarine other){
+    private Submarine(Submarine other) {
         this();
     }
 

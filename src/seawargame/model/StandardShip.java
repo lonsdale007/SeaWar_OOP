@@ -1,6 +1,7 @@
 package seawargame.model;
 
-public class StandardShip extends Ship{
+public class StandardShip extends Ship {
+
     public StandardShip(){
         super();
     }
@@ -9,20 +10,6 @@ public class StandardShip extends Ship{
     }
     protected int length;
 
-    /**
-     * @param field
-     * @param length number of decks
-     */
-    public StandardShip(GameField field, int length) {
-        super();
-
-        if(length < 1) {
-            throw new RuntimeException("Invalid length for linear ship is specified: "+length);
-        }
-        this.length = length;
-
-        init();
-    }
     public StandardShip(int length) {
         super();
 

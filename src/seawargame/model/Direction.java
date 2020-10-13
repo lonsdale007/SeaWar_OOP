@@ -10,9 +10,9 @@ public enum Direction {
     WEST (9);
 
     // определяем направление в часах (0 до 12)
-    private int _hours = 0;
+    private int _hours;
 
-    private Direction(int hours) {
+    Direction(int hours) {
         // Приводим заданные часы к допустимому диапазону
         this._hours = suiteHours(hours);
     }
@@ -58,7 +58,7 @@ public enum Direction {
     { return NORTH; }
 
     public static Direction south()
-    { return SOUTH; };
+    { return SOUTH; }
 
     public static Direction east()
     { return EAST; }
