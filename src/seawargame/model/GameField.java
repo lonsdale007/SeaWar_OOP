@@ -69,7 +69,7 @@ public class GameField {
     }
 
     public boolean setShips(List<Ship> shipsPool) {
-        //рандомным образом расставить полученные корабли
+        // рандомным образом расставить полученные корабли
         // очистить все клетки от палуб кораблей
         for (Cell cell : cells.values()) {
             cell.unsetDeck();

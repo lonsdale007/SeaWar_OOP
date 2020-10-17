@@ -24,7 +24,6 @@ public class GamePanel extends JFrame {
     private JLabel statusBarLabel;
     private JLabel statusBarLeftLabel;
     private Box mainBoxWithStatusBar;
-    private static final int[] CELL_FRAME = {80, 100, 200};
     private final int gameMode;
     private final int fieldSize;
     boolean firstTimeMakeGameWindow;
@@ -40,14 +39,14 @@ public class GamePanel extends JFrame {
         return this.game;
     }
 
-    public GamePanel(int gameMode) {
+    public GamePanel(int gameMode, int fieldSize) {
         super();
 
         //create a Game
         this.game = new GameModel();
         this.observer = new GameObserver();
         this.game.addGameListener(observer);
-        this.fieldSize = 10;
+        this.fieldSize = fieldSize;
         this.gameMode = gameMode;
 
         for (int i = 0; i < 2; i++) {
